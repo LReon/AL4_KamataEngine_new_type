@@ -14,17 +14,28 @@ void GameScene::Initialize() {
 	audio_ = Audio::GetInstance();
 
 	// ファイル名を指定してテクスチャを読み込む
-	//textureHandle_ = TextureManager::Load("mario.jpg");
+	textureHandle_ = TextureManager::Load("mario.jpg");
 	// 3Dモデルの生成
 	model_ = Model::Create();
 
 	// ワールドトランスフォームの初期化
 	worldTransform_.Initialize();
-	// ビュープロジェクションの初期化
+	// カメラの初期化
 	camera_.Initialize();
+
+	// 自キャラの生成
+	player_ = new Player();
+	// 自キャラの初期化
+	player_->Initialize(model_, textureHandle_);
+
 }
 
-void GameScene::Update() {}
+void GameScene::Update() {
+
+	// 自キャラの更新
+	player_->Update();
+
+}
 
 void GameScene::Draw() {
 
@@ -55,6 +66,9 @@ void GameScene::Draw() {
 
 	// 3Dモデル描画
 	//model_->Draw(worldTransform_, camera_, textureHandle_);
+
+	// 自キャラの描画
+	player_->Draw(camera_);
 
 	// 3Dオブジェクト描画後処理
 	Model::PostDraw();

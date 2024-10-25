@@ -3,6 +3,8 @@
 #include <KamataEngine.h>
 using namespace KamataEngine;
 
+#include "../Player.h"
+
 /// <summary>
 /// ゲームシーン
 /// </summary>
@@ -32,8 +34,12 @@ public: // メンバ関数
 
 	// ワールドトランスフォーム
 	WorldTransform worldTransform_;
-	// ビュープロジェクション
+
+	// カメラ
 	Camera camera_;
+
+	// 自キャラ
+	Player* player_ = nullptr;
 
 	/// <summary>
 	/// 毎フレーム処理
