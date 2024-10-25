@@ -3,6 +3,7 @@
 using namespace KamataEngine;
 
 #include "affine.h"
+#include "PlayerBullet.h"
 
 class Player {
 
@@ -14,11 +15,20 @@ public:
 	// 初期化
 	void Initialize(Model* model, uint32_t textureHandle);
 
+	// 回転
+	void Rotate();
+
+	// 攻撃
+	void Attack();
+
 	// 更新
 	void Update();
 
 	// 描画
 	void Draw(Camera& camera);
+
+	// 弾
+	PlayerBullet* bullet_ = nullptr;
 
 private:
 

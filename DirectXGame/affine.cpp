@@ -20,7 +20,7 @@ Matrix4x4 MakeAffineMatrix(const Vector3& scale, const Vector3& rotate, const Ve
 
 	Matrix4x4 TranslateMat = {
 
-	    1, 0, 0, 0,           0,           1,           0, 0, 0,
+	    1, 0, 0, 0,0,1, 0, 0, 0,
 	    0, 1, 0, translate.x, translate.y, translate.z, 1
 
 	};

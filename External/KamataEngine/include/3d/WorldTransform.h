@@ -36,6 +36,7 @@ public:
 	/// 初期化
 	/// </summary>
 	void Initialize();
+	void UpdateMatrix();
 	/// <summary>
 	/// 定数バッファ生成
 	/// </summary>
