@@ -41,6 +41,11 @@ public: // メンバ関数
 	// 自キャラ
 	Player* player_ = nullptr;
 
+	// デバッグカメラ
+	bool isDebugCameraActive_ = false;
+
+	DebugCamera* debugCamera_ = nullptr;
+
 	/// <summary>
 	/// 毎フレーム処理
 	/// </summary>

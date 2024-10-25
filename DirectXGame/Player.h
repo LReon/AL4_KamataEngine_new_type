@@ -2,9 +2,14 @@
 #include <KamataEngine.h>
 using namespace KamataEngine;
 
+#include "affine.h"
+
 class Player {
 
 public:
+
+	// キーボード入力
+	Input* input_ = nullptr;
 
 	// 初期化
 	void Initialize(Model* model, uint32_t textureHandle);

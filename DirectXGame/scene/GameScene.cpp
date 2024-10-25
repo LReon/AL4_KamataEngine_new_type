@@ -5,13 +5,26 @@
 
 GameScene::GameScene() {}
 
-GameScene::~GameScene() { delete model_; }
+GameScene::~GameScene() { 
+	delete model_; 
+	delete player_;
+	delete debugCamera_;
+}
 
 void GameScene::Initialize() {
 
 	dxCommon_ = DirectXCommon::GetInstance();
 	input_ = Input::GetInstance();
 	audio_ = Audio::GetInstance();
+
+	// デバッグカメラの生成
+	debugCamera_ = new DebugCamera(1280, 720);
+
+
+	// 軸方向の表示を有効にする
+	AxisIndicator::GetInstance()->SetVisible(true);
+	// 軸方向表示が参照するビュープロジェクションを指定する（アドレス渡し）
+	AxisIndicator::GetInstance()->SetTargetCamera(&debugCamera_->GetCamera());
 
 	// ファイル名を指定してテクスチャを読み込む
 	textureHandle_ = TextureManager::Load("mario.jpg");
@@ -31,6 +44,30 @@ void GameScene::Initialize() {
 }
 
 void GameScene::Update() {
+
+		// デバッグカメラの更新
+	debugCamera_->Update();
+
+#ifdef _DEBUG
+
+	if (input_->TriggerKey(DIK_SPACE)) {
+		isDebugCameraActive_ = !isDebugCameraActive_;
+	}
+
+#endif //  _DEBUG
+
+	if (isDebugCameraActive_) {
+
+		debugCamera_->Update();
+
+		camera_.matView = debugCamera_->GetCamera().matView;
+		camera_.matProjection = debugCamera_->GetCamera().matProjection;
+		camera_.TransferMatrix();
+	} else {
+		camera_.UpdateMatrix();
+	}
+
+
 
 	// 自キャラの更新
 	player_->Update();
@@ -68,7 +105,13 @@ void GameScene::Draw() {
 	//model_->Draw(worldTransform_, camera_, textureHandle_);
 
 	// 自キャラの描画
-	player_->Draw(camera_);
+	if (isDebugCameraActive_ == false) {
+		player_->Draw(camera_);
+	}
+
+	if (isDebugCameraActive_) {
+		model_->Draw(worldTransform_, debugCamera_->GetCamera(), textureHandle_);
+	}
 
 	// 3Dオブジェクト描画後処理
 	Model::PostDraw();
