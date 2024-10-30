@@ -1,5 +1,6 @@
 #include <cassert>
 #include "Player.h"
+#include "MathUtilityForText.h"
 
 void Player::Initialize(Model* model, uint32_t textureHandle) {
 
@@ -46,9 +47,16 @@ void Player::Attack() {
 			bullet_ = nullptr;
 		}
 
+		// 弾の速度
+		const float kBulletSpeed = 1.0f;
+		Vector3 velocity(0,0,kBulletSpeed);
+
+		// 速度ベクトルを自機の向きに合わせて回転させる
+		velocity = TransformNormal(velocity, worldTransform_.matWorld_);
+
 		// 弾を生成し、初期化
 		PlayerBullet* newBullet = new PlayerBullet();
-		newBullet->Initialize(model_, worldTransform_.translation_);
+		newBullet->Initialize(model_, worldTransform_.translation_,velocity);
 
 		// 弾を登録する
 		//bullet_ = newBullet;
@@ -59,6 +67,16 @@ void Player::Attack() {
 }
 
 void Player::Update() {
+
+	// デスフラグの立った弾を削除
+	bullets_.remove_if([](PlayerBullet* bullet) {
+		if (bullet->IsDead()) {
+			delete bullet;
+			return true;
+		}
+		return false;
+	});
+
 
 	// キャラクターの移動ベクトル
 	Vector3 move = {0.0f, 0.0f, 0.0f};
@@ -79,8 +97,7 @@ void Player::Update() {
 	}
 
 	// 座標移動
-	worldTransform_.translation_.x += move.x;
-	worldTransform_.translation_.y += move.y;
+	worldTransform_.translation_ += move;
 
 	worldTransform_.matWorld_ = MakeAffineMatrix(worldTransform_.scale_, worldTransform_.rotation_, worldTransform_.translation_);
 

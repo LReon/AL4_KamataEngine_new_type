@@ -1,7 +1,8 @@
 #include <KamataEngine.h>
 using namespace KamataEngine;
 
-#include "affine.h"
+#include "MathUtilityForText.h"
+
 
 void WorldTransform::UpdateMatrix() {
 

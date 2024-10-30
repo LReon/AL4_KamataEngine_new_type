@@ -4,7 +4,7 @@ using namespace KamataEngine;
 
 #include <list>
 
-#include "affine.h"
+
 #include "PlayerBullet.h"
 
 class Player {

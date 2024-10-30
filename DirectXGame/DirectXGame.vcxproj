@@ -106,8 +106,8 @@
     </FxCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="affine.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MathUtilityForText.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayerBullet.cpp" />
     <ClCompile Include="scene\GameScene.cpp" />
@@ -189,7 +189,7 @@
     <None Include="Resources\shaders\Sprite.hlsli" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="affine.h" />
+    <ClInclude Include="MathUtilityForText.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayerBullet.h" />
     <ClInclude Include="scene\GameScene.h" />
