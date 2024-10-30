@@ -2,6 +2,8 @@
 #include <KamataEngine.h>
 using namespace KamataEngine;
 
+#include <list>
+
 #include "affine.h"
 #include "PlayerBullet.h"
 
@@ -21,6 +23,9 @@ public:
 	// 攻撃
 	void Attack();
 
+	// 弾
+	std::list<PlayerBullet*> bullets_;
+
 	// 更新
 	void Update();
 
@@ -29,6 +34,9 @@ public:
 
 	// 弾
 	PlayerBullet* bullet_ = nullptr;
+
+	// デストラクタ
+	~Player();
 
 private:
 
@@ -41,5 +49,4 @@ private:
 	// テクスチャハンドル
 	uint32_t textureHandle_ = 0u;
 	
-
 };

@@ -16,6 +16,8 @@ void Player::Initialize(Model* model, uint32_t textureHandle) {
 
 }
 
+
+
 void Player::Rotate() {
 
 	// 回転速度[ラジアン/frame]
@@ -38,12 +40,19 @@ void Player::Attack() {
 
 	if (input_->TriggerKey(DIK_SPACE)) {
 	
+		// 弾があれば解放する
+		if (bullet_) {
+			delete bullet_;
+			bullet_ = nullptr;
+		}
+
 		// 弾を生成し、初期化
 		PlayerBullet* newBullet = new PlayerBullet();
 		newBullet->Initialize(model_, worldTransform_.translation_);
 
 		// 弾を登録する
-		bullet_ = newBullet;
+		//bullet_ = newBullet;
+		bullets_.push_back(newBullet);
 	
 	}
 
@@ -73,9 +82,6 @@ void Player::Update() {
 	worldTransform_.translation_.x += move.x;
 	worldTransform_.translation_.y += move.y;
 
-	
-
-
 	worldTransform_.matWorld_ = MakeAffineMatrix(worldTransform_.scale_, worldTransform_.rotation_, worldTransform_.translation_);
 
 	ImGui::Begin("Debug1");
@@ -101,10 +107,14 @@ void Player::Update() {
 	Attack();
 
 	// 弾の更新
-	if (bullet_) {
+	/*if (bullet_) {
 	
 		bullet_->Update();
 	
+	}*/
+
+	for (PlayerBullet* bullet : bullets_) {
+		bullet->Update();
 	}
 
 	// 行列を定数バッファに転送
@@ -118,8 +128,16 @@ void Player::Draw(Camera& camera) {
 	model_->Draw(worldTransform_, camera, textureHandle_);
 
 	// 弾の描画
-	if (bullet_) {
+	/*if (bullet_) {
 		bullet_->Draw(camera);
+	}*/
+	for (PlayerBullet* bullet : bullets_) {
+	
+		bullet->Draw(camera);
 	}
 
+}
+
+Player::~Player() {
+	delete bullet_;
 }
