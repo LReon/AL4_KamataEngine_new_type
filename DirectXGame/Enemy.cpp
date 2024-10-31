@@ -11,9 +11,6 @@ void Enemy::Initialize(Model* model, uint32_t textureHandle) {
 	textureHandle_ = textureHandle;
 	// ワールド変換の初期化
 	worldTransform_.Initialize();
-
-
-
 }
 
 void Enemy::Approach() {
@@ -45,7 +42,7 @@ void Enemy::Leave() {
 void Enemy::Update() {
 
 	
-
+	// 敵のフェーズ
 	switch (phase_) {
 	case Enemy::Phase::Approach:
 	default:
@@ -60,9 +57,6 @@ void Enemy::Update() {
 		break;
 	
 	}
-
-
-
 	
 
 	// 敵の移動速度
