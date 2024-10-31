@@ -16,19 +16,63 @@ void Enemy::Initialize(Model* model, uint32_t textureHandle) {
 
 }
 
-void Enemy::Update() {
+void Enemy::Approach() {
 
 	// 敵の移動ベクトル
 	Vector3 move = {0.0f, 0.0f, 0.0f};
+	Vector3 speed = {-0.1f, 0.1f, 0.0f};
+
+	// 移動
+	worldTransform_.translation_ += speed;
+
+	if (worldTransform_.translation_.z < 0.0f) {
+		phase_ = Phase::Leave;
+	}
+
+}
+
+void Enemy::Leave() {
+
+	// 敵の移動ベクトル
+	Vector3 move = {0.0f, 0.0f, 0.0f};
+	Vector3 speed = {-0.1f, 0.1f, 0.0f};
+
+	// 移動
+	worldTransform_.translation_ += speed;
+
+}
+
+void Enemy::Update() {
+
+	
+
+	switch (phase_) {
+	case Enemy::Phase::Approach:
+	default:
+
+		Approach();
+
+		break;
+	case Enemy::Phase::Leave:
+
+		Leave();
+
+		break;
+	
+	}
+
+
+
+	
 
 	// 敵の移動速度
-	const float kEnemySpeedY = 0.005f;
+	/*const float kEnemySpeedY = 0.005f;
 	const float kEnemySpeedZ = 0.2f;
 
 	move.y += kEnemySpeedY;
 	move.z -= kEnemySpeedZ;
 
-	worldTransform_.translation_ += move;
+	worldTransform_.translation_ += move;*/
 
 	worldTransform_.matWorld_ = MakeAffineMatrix(worldTransform_.scale_, worldTransform_.rotation_, worldTransform_.translation_);
 
