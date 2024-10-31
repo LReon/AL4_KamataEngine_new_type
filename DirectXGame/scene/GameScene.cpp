@@ -8,6 +8,7 @@ GameScene::GameScene() {}
 GameScene::~GameScene() { 
 	delete model_; 
 	delete player_;
+	delete enemy_;
 	delete debugCamera_;
 }
 
@@ -41,6 +42,24 @@ void GameScene::Initialize() {
 	// 自キャラの初期化
 	player_->Initialize(model_, textureHandle_);
 
+	// 敵のテクスチャ
+	enemyTextureHandle_ = TextureManager::Load("enemy.png");
+	
+	// 敵のモデル
+	enemyModel_ = Model::Create();
+
+	// 敵のワールドトランスフォームの初期化
+	enemyWorldTransform_.Initialize();
+
+	// 敵のカメラの初期化
+	enemyCamera_.Initialize();
+
+	// 敵キャラの生成
+	enemy_ = new Enemy;
+
+	// 敵キャラの初期化
+	enemy_->Initialize(enemyModel_, enemyTextureHandle_);
+
 }
 
 void GameScene::Update() {
@@ -72,6 +91,8 @@ void GameScene::Update() {
 	// 自キャラの更新
 	player_->Update();
 
+	// 敵キャラの更新
+	enemy_->Update();
 }
 
 void GameScene::Draw() {
@@ -112,6 +133,8 @@ void GameScene::Draw() {
 	if (isDebugCameraActive_) {
 		model_->Draw(worldTransform_, debugCamera_->GetCamera(), textureHandle_);
 	}
+
+	enemy_->Draw(enemyCamera_);
 
 	// 3Dオブジェクト描画後処理
 	Model::PostDraw();

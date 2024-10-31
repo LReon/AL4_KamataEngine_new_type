@@ -4,6 +4,7 @@
 using namespace KamataEngine;
 
 #include "../Player.h"
+#include "../Enemy.h"
 
 /// <summary>
 /// ゲームシーン
@@ -40,6 +41,21 @@ public: // メンバ関数
 
 	// 自キャラ
 	Player* player_ = nullptr;
+
+	// 敵
+	Enemy* enemy_ = nullptr;
+
+	// テクスチャハンドル
+	uint32_t enemyTextureHandle_ = 0;
+
+	// 3Dモデルの生成
+	Model* enemyModel_ = nullptr;
+
+	// ワールドトランスフォーム
+	WorldTransform enemyWorldTransform_;
+
+	// カメラ
+	Camera enemyCamera_;
 
 	// デバッグカメラ
 	bool isDebugCameraActive_ = false;
