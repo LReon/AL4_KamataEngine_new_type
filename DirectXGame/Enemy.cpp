@@ -46,16 +46,9 @@ void Enemy::Leave() {
 
 void Enemy::Fire() {
 
-	timer++;
-	if (timer >= 20.0f) {
-		flag = 1;
-	} else {
-		flag = 0;
-	}
-
 	
 
-	if (flag == 1) {
+	
 
 		const float kEnemyBulletSpeed = 1.0f;
 		Vector3 velocity(0, 0, kEnemyBulletSpeed);
@@ -72,7 +65,7 @@ void Enemy::Fire() {
 			//enemyBullet_ = newEnemyBullet;
 		    enemyBullets_.push_back(newEnemyBullet);
 			timer = 0.0f;
-		}
+		
 	
 
 }
@@ -104,8 +97,9 @@ void Enemy::Update() {
 	
 	}
 	
-	Fire();
-
+	if (input_->TriggerKey(DIK_Z)) {
+		Fire();
+	}
 	/*if (enemyBullet_) {
 		enemyBullet_->Update();
 	}*/
