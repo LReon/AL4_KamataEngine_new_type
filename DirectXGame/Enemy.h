@@ -4,7 +4,6 @@ using namespace KamataEngine;
 #include "EnemyBullet.h"
 
 
-
 class Enemy {
 
 	
