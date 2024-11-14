@@ -46,14 +46,32 @@ void Enemy::Leave() {
 
 void Enemy::Fire() {
 
-	
+	timer++;
+	if (timer >= 20.0f) {
+		flag = 1;
+	} else {
+		flag = 0;
+	}
+
+	assert(player_);
+
+	const float kBulletSpeed = 0.5f;
 
 	
+
+	GetWorldPosition();
+
+
+	if (flag == 1) {
 
 		const float kEnemyBulletSpeed = 1.0f;
 		Vector3 velocity(0, 0, kEnemyBulletSpeed);
 
 		velocity = TransformNormal(velocity, worldTransform_.matWorld_);
+
+
+
+
 
 		if (enemyBullet_) {
 			delete enemyBullet_;
@@ -65,7 +83,7 @@ void Enemy::Fire() {
 			//enemyBullet_ = newEnemyBullet;
 		    enemyBullets_.push_back(newEnemyBullet);
 			timer = 0.0f;
-		
+		}
 	
 
 }
@@ -97,23 +115,11 @@ void Enemy::Update() {
 	
 	}
 	
-	if (input_->TriggerKey(DIK_Z)) {
-		Fire();
-	}
+	Fire();
+
 	/*if (enemyBullet_) {
 		enemyBullet_->Update();
 	}*/
-
-
-	// 移動限界座標
-	const float kMoveLimitX = 35.0f;
-	const float kMoveLimitY = 19.0f;
-
-	// 範囲を超えない処理
-	worldTransform_.translation_.x = max(worldTransform_.translation_.x, -kMoveLimitX);
-	worldTransform_.translation_.x = min(worldTransform_.translation_.x, +kMoveLimitX);
-	worldTransform_.translation_.y = max(worldTransform_.translation_.y, -kMoveLimitY);
-	worldTransform_.translation_.y = min(worldTransform_.translation_.y, +kMoveLimitY);
 
 	for (EnemyBullet* enemyBullet : enemyBullets_) {
 	
@@ -159,3 +165,13 @@ Enemy::~Enemy() {
 
 
 }
+
+Vector3 Enemy::GetWorldPosition() { 
+	
+	Vector3 worldPos;
+	worldPos.x = worldTransform_.translation_.x;
+	worldPos.y = worldTransform_.translation_.y;
+	worldPos.z = worldTransform_.translation_.z;
+
+	
+	return worldPos; }
