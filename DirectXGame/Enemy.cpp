@@ -53,13 +53,11 @@ void Enemy::Fire() {
 		flag = 0;
 	}
 
-	assert(player_);
-
-	const float kBulletSpeed = 0.5f;
+	
+	
 
 	
 
-	GetWorldPosition();
 
 
 	if (flag == 1) {
@@ -166,12 +164,3 @@ Enemy::~Enemy() {
 
 }
 
-Vector3 Enemy::GetWorldPosition() { 
-	
-	Vector3 worldPos;
-	worldPos.x = worldTransform_.translation_.x;
-	worldPos.y = worldTransform_.translation_.y;
-	worldPos.z = worldTransform_.translation_.z;
-
-	
-	return worldPos; }
