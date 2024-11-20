@@ -35,6 +35,8 @@ public:
 	// 弾
 	PlayerBullet* bullet_ = nullptr;
 
+	Vector3 GetWorldPosition();
+
 	// デストラクタ
 	~Player();
 

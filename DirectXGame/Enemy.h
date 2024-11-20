@@ -4,6 +4,9 @@ using namespace KamataEngine;
 #include "EnemyBullet.h"
 
 
+// 自機クラスの前方宣言
+class Player;
+
 class Enemy {
 
 	
@@ -46,6 +49,12 @@ public:
 	int flag;
 	float timer;
 	
+	// 自キャラ
+	Player* player_ = nullptr;
+
+	void SetPlayer(Player* player) { player_ = player; }
+
+	Vector3 GetWorldPosition();
 
 private:
 	// ワールド変換データ

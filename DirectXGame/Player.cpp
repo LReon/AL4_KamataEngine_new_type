@@ -95,6 +95,12 @@ void Player::Update() {
 	} else if (input_->PushKey(DIK_S)) {
 		move.y -= kCharacterSpeed;
 	}
+	if (input_->PushKey(DIK_Q)) {
+		move.z += kCharacterSpeed;
+	
+	} else if (input_->PushKey(DIK_E)) {
+		move.z -= kCharacterSpeed;
+	}
 
 	// 座標移動
 	worldTransform_.translation_ += move;
@@ -153,6 +159,14 @@ void Player::Draw(Camera& camera) {
 		bullet->Draw(camera);
 	}
 
+}
+
+Vector3 Player::GetWorldPosition() { 
+	Vector3 worldPos;
+	worldPos.x = worldTransform_.matWorld_.m[3][0];
+	worldPos.y = worldTransform_.matWorld_.m[3][1];
+	worldPos.z = worldTransform_.matWorld_.m[3][2];
+	return worldPos; 
 }
 
 Player::~Player() {

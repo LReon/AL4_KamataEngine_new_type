@@ -1,6 +1,7 @@
 #include <cassert>
 #include "Enemy.h"
 #include "MathUtilityForText.h"
+#include "Player.h"
 
 void Enemy::Initialize(Model* model, uint32_t textureHandle) {
 
@@ -57,10 +58,21 @@ void Enemy::Fire() {
 
 	if (flag == 1) {
 
-		const float kEnemyBulletSpeed = 1.0f;
-		Vector3 velocity(0, 0, kEnemyBulletSpeed);
+		
 
-		velocity = TransformNormal(velocity, worldTransform_.matWorld_);
+
+		const float kEnemyBulletSpeed = 1.0f;
+		
+
+
+		Vector3 targetPos = player_->GetWorldPosition();
+		Vector3 basePos = this->GetWorldPosition();
+		Vector3 velocity = targetPos - basePos;
+
+		velocity = Normalize(velocity);
+
+		velocity *= kEnemyBulletSpeed;
+		//velocity = TransformNormal(velocity, worldTransform_.matWorld_);
 
 		if (enemyBullet_) {
 			delete enemyBullet_;
@@ -153,4 +165,12 @@ Enemy::~Enemy() {
 
 
 
+}
+
+Vector3 Enemy::GetWorldPosition() { 
+	Vector3 worldPos;
+	worldPos.x = worldTransform_.matWorld_.m[3][0];
+	worldPos.y = worldTransform_.matWorld_.m[3][1];
+	worldPos.z = worldTransform_.matWorld_.m[3][2];
+	return worldPos;
 }

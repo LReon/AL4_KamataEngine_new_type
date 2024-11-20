@@ -60,6 +60,8 @@ void GameScene::Initialize() {
 	// 敵キャラの初期化
 	enemy_->Initialize(enemyModel_, enemyTextureHandle_);
 
+	enemy_->SetPlayer(player_);
+
 }
 
 void GameScene::Update() {
