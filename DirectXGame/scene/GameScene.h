@@ -5,6 +5,8 @@ using namespace KamataEngine;
 
 #include "../Player.h"
 #include "../Enemy.h"
+#include "../EnemyBullet.h"
+
 
 /// <summary>
 /// ゲームシーン
@@ -45,6 +47,7 @@ public: // メンバ関数
 	// 敵
 	Enemy* enemy_ = nullptr;
 
+
 	// テクスチャハンドル
 	uint32_t enemyTextureHandle_ = 0;
 
@@ -56,6 +59,8 @@ public: // メンバ関数
 
 	// カメラ
 	Camera enemyCamera_;
+
+	void CheckAllCollisions();
 
 	// デバッグカメラ
 	bool isDebugCameraActive_ = false;

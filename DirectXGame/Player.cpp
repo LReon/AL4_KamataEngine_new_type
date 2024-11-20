@@ -169,6 +169,8 @@ Vector3 Player::GetWorldPosition() {
 	return worldPos; 
 }
 
+void Player::OnCollision() {}
+
 Player::~Player() {
 	delete bullet_;
 }
