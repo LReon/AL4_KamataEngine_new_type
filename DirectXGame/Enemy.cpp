@@ -64,12 +64,13 @@ void Enemy::Fire() {
 		const float kEnemyBulletSpeed = 1.0f;
 		
 
-
+		// 座標の取得
 		Vector3 targetPos = player_->GetWorldPosition();
 		Vector3 basePos = this->GetWorldPosition();
 		Vector3 velocity = targetPos - basePos;
 
 		velocity = Normalize(velocity);
+
 
 		velocity *= kEnemyBulletSpeed;
 		//velocity = TransformNormal(velocity, worldTransform_.matWorld_);
