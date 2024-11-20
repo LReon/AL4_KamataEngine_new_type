@@ -32,11 +32,7 @@ public:
 
 	void Fire();
 
-	// 衝突を検出したらコールバック
-	void OnCollision();
-
-	// 弾リストを取得
-	const std::list<EnemyBullet*>& GetBullets() const { return enemyBullets_; }
+	
 	
 	void Update();
 

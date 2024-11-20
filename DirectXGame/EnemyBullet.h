@@ -7,11 +7,7 @@ class EnemyBullet {
 public:
 
 	void Initialize(Model* model, const Vector3& position,const Vector3& velocity);
-
-	void OnCollision();
-
-	Vector3 GetWorldPosition();
-
+	
 	void Update();
 
 	void Draw(const Camera& camera);

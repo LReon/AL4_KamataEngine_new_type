@@ -2,7 +2,6 @@
 #include "GameScene.h"
 
 #include <cassert>
-#include "../MathUtilityForText.h"
 
 GameScene::GameScene() {}
 
@@ -63,89 +62,6 @@ void GameScene::Initialize() {
 
 	enemy_->SetPlayer(player_);
 
-	
-	
-
-}
-
-void GameScene::CheckAllCollisions() {
-
-	// 判定AとBの座標
-	Vector3 posA, posB;
-
-	// 自弾リストの取得
-	const std::list<PlayerBullet*> playerBullets = player_->GetBullets();
-	// 敵弾リストの取得
-	const std::list<EnemyBullet*>& enemyBullets = enemy_->GetBullets();
-
-	#pragma region
-	posA = player_->GetWorldPosition();
-	for (EnemyBullet* bullet : enemyBullets) {
-	
-
-
-		posB = bullet->GetWorldPosition();
-	
-		Vector3 subtract = posB - posA;
-
-
-		float a = Length(subtract);
-
-
-
-		if (a < 3.0f) {
-		
-			player_->OnCollision();
-			bullet->OnCollision();
-
-		}
-	}
-
-	#pragma endregion
-
-	#pragma region
-
-	posA = enemy_->GetWorldPosition();
-	for (PlayerBullet* bullet : playerBullets) {
-
-		posB = bullet->GetWorldPosition();
-
-		Vector3 subtract = posB - posA;
-
-		float a = Length(subtract);
-
-		if (a < 3.0f) {
-
-			enemy_->OnCollision();
-			bullet->OnCollision();
-		}
-	}
-
-
-	#pragma endregion
-
-	#pragma region
-
-	
-	for (PlayerBullet* pBullet : playerBullets) {
-		for (EnemyBullet* eBullet : enemyBullets) {
-
-			posA = pBullet->GetWorldPosition();
-			posB = eBullet->GetWorldPosition();
-
-			Vector3 subtract = posB - posA;
-
-			float a = Length(subtract);
-
-			if (a < 3.0f) {
-				pBullet->OnCollision();
-				eBullet->OnCollision();
-			}
-
-		}
-	}
-	#pragma endregion
-
 }
 
 void GameScene::Update() {
@@ -179,8 +95,6 @@ void GameScene::Update() {
 
 	// 敵キャラの更新
 	enemy_->Update();
-
-	CheckAllCollisions();
 }
 
 void GameScene::Draw() {
