@@ -7,6 +7,7 @@ using namespace KamataEngine;
 #include "../Enemy.h"
 #include "../EnemyBullet.h"
 #include "../Skydome.h"
+#include "../RailCamera.h"
 
 
 /// <summary>
@@ -49,6 +50,11 @@ public: // メンバ関数
 
 	// 自キャラ
 	Player* player_ = nullptr;
+
+	// レールカメラ
+	RailCamera* railCamera_ = nullptr;
+	WorldTransform railCameraWT_;
+	Camera railCameraCamera_;
 
 	// 敵
 	Enemy* enemy_ = nullptr;
