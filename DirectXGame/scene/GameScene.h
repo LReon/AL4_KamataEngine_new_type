@@ -6,6 +6,7 @@ using namespace KamataEngine;
 #include "../Player.h"
 #include "../Enemy.h"
 #include "../EnemyBullet.h"
+#include "../Skydome.h"
 
 
 /// <summary>
@@ -40,6 +41,11 @@ public: // メンバ関数
 
 	// カメラ
 	Camera camera_;
+
+	Skydome* skydome_ = nullptr;
+
+	Model* modelSkydome_ = nullptr;
+
 
 	// 自キャラ
 	Player* player_ = nullptr;

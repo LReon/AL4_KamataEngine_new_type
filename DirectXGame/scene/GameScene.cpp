@@ -11,6 +11,7 @@ GameScene::~GameScene() {
 	delete player_;
 	delete enemy_;
 	delete debugCamera_;
+	delete modelSkydome_;
 }
 
 void GameScene::Initialize() {
@@ -28,6 +29,8 @@ void GameScene::Initialize() {
 	// 軸方向表示が参照するビュープロジェクションを指定する（アドレス渡し）
 	AxisIndicator::GetInstance()->SetTargetCamera(&debugCamera_->GetCamera());
 
+	
+
 	// ファイル名を指定してテクスチャを読み込む
 	textureHandle_ = TextureManager::Load("mario.jpg");
 	// 3Dモデルの生成
@@ -37,6 +40,10 @@ void GameScene::Initialize() {
 	worldTransform_.Initialize();
 	// カメラの初期化
 	camera_.Initialize();
+
+	modelSkydome_ = Model::CreateFromOBJ("skyDome", true);
+	skydome_ = new Skydome();
+	skydome_->Initialize(modelSkydome_, &camera_);
 
 	// 自キャラの生成
 	player_ = new Player();
@@ -153,6 +160,8 @@ void GameScene::Update() {
 		// デバッグカメラの更新
 	debugCamera_->Update();
 
+	skydome_->Update();
+
 #ifdef _DEBUG
 
 	if (input_->TriggerKey(DIK_RETURN)) {
@@ -212,6 +221,8 @@ void GameScene::Draw() {
 
 	// 3Dモデル描画
 	//model_->Draw(worldTransform_, camera_, textureHandle_);
+
+	skydome_->Draw(camera_);
 
 	// 自キャラの描画
 	if (isDebugCameraActive_ == false) {

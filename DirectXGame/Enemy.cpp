@@ -48,7 +48,7 @@ void Enemy::Leave() {
 void Enemy::Fire() {
 
 	timer++;
-	if (timer >= 20.0f) {
+	if (timer >= 120.0f) {
 		flag = 1;
 	} else {
 		flag = 0;
