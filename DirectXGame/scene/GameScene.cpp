@@ -38,8 +38,10 @@ void GameScene::Initialize() {
 
 	// ワールドトランスフォームの初期化
 	worldTransform_.Initialize();
+	
 	// カメラの初期化
 	camera_.Initialize();
+	
 
 	modelSkydome_ = Model::CreateFromOBJ("skyDome", true);
 	skydome_ = new Skydome();
