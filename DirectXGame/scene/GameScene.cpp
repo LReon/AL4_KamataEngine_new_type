@@ -52,6 +52,11 @@ void GameScene::Initialize() {
 	// 自キャラの初期化
 	player_->Initialize(model_, textureHandle_);
 
+	railCamera_ = new RailCamera();
+	railCamera_->Initialize();
+	railCameraWT_.Initialize();
+	railCameraCamera_.Initialize();
+
 	// 敵のテクスチャ
 	enemyTextureHandle_ = TextureManager::Load("enemy.png");
 	

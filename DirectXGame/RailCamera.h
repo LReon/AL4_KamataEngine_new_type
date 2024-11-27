@@ -11,7 +11,7 @@ public:
 
 private:
 
-	WorldTransform worldTransform;
+	WorldTransform worldTransform_;
 	Camera* camera_;
 
 };

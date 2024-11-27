@@ -1,6 +1,11 @@
 #include "RailCamera.h"
 
 
-void RailCamera::Initialize() {}
+void RailCamera::Initialize() {
+
+	worldTransform_.Initialize();
+	
+
+}
 
 void RailCamera::Update() {}
