@@ -22,8 +22,8 @@ void Enemy::Initialize(Model* model, uint32_t textureHandle) {
 void Enemy::Approach() {
 
 	// 敵の移動ベクトル
-	Vector3 move = {0.0f, 0.0f, 0.0f};
-	Vector3 speed = {0.0f, 0.0f, 0.0f};
+	Vector3 move = {1.0f, 0.0f, 0.0f};
+	Vector3 speed = {0.01f, 0.0f, 0.0f};
 
 	// 移動
 	worldTransform_.translation_ += speed;
@@ -37,11 +37,11 @@ void Enemy::Approach() {
 void Enemy::Leave() {
 
 	// 敵の移動ベクトル
-	/*Vector3 move = {0.0f, 0.0f, 0.0f};
-	Vector3 speed = {0.0f, 0.0f, 0.0f};*/
+	Vector3 move = {1.0f, 0.0f, 0.0f};
+	Vector3 speed = {0.1f, 0.0f, 0.0f};
 
 	// 移動
-	//worldTransform_.translation_ += speed;
+	worldTransform_.translation_ += speed;
 
 }
 
