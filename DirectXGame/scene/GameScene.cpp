@@ -32,15 +32,16 @@ void GameScene::Initialize() {
 	
 
 	// ファイル名を指定してテクスチャを読み込む
-	textureHandle_ = TextureManager::Load("mario.jpg");
+	//textureHandle_ = TextureManager::Load("mario.jpg");
 	// 3Dモデルの生成
-	model_ = Model::Create();
+	model_ = Model::CreateFromOBJ("player",true);
 
 	// ワールドトランスフォームの初期化
 	worldTransform_.Initialize();
 	
 	// カメラの初期化
 	camera_.Initialize();
+	
 	
 
 	modelSkydome_ = Model::CreateFromOBJ("skyDome", true);
@@ -53,10 +54,12 @@ void GameScene::Initialize() {
 	player_->Initialize(model_, textureHandle_);
 
 	// 敵のテクスチャ
-	enemyTextureHandle_ = TextureManager::Load("enemy.png");
+	//enemyTextureHandle_ = TextureManager::Load("enemy.png");
 	
+
+
 	// 敵のモデル
-	enemyModel_ = Model::Create();
+	enemyModel_ = Model::CreateFromOBJ("enemy",true);
 
 	// 敵のワールドトランスフォームの初期化
 	enemyWorldTransform_.Initialize();
@@ -106,8 +109,16 @@ void GameScene::CheckAllCollisions() {
 		
 			player_->OnCollision();
 			bullet->OnCollision();
+			hp -= 1;
 
 		}
+		if (hp <= 0) {
+			flag = 1;
+		}
+		if (flag == 1) {
+			finished_ = true;
+		}
+
 	}
 
 	#pragma endregion
@@ -127,6 +138,17 @@ void GameScene::CheckAllCollisions() {
 
 			enemy_->OnCollision();
 			bullet->OnCollision();
+			eHp--;
+
+		}
+		if (eHp <= 0) {
+		
+			eFlag = 1;
+		
+		}
+		if (eFlag == 1) {
+		
+			finished_ = true;
 		}
 	}
 
@@ -166,9 +188,9 @@ void GameScene::Update() {
 
 #ifdef _DEBUG
 
-	if (input_->TriggerKey(DIK_RETURN)) {
+	/*if (input_->TriggerKey(DIK_RETURN)) {
 		isDebugCameraActive_ = !isDebugCameraActive_;
-	}
+	}*/
 
 #endif //  _DEBUG
 
@@ -192,6 +214,8 @@ void GameScene::Update() {
 	enemy_->Update();
 
 	CheckAllCollisions();
+
+	
 }
 
 void GameScene::Draw() {
@@ -227,7 +251,8 @@ void GameScene::Draw() {
 	skydome_->Draw(camera_);
 
 	// 自キャラの描画
-	if (isDebugCameraActive_ == false) {
+	if (flag == 0) {
+
 		player_->Draw(camera_);
 	}
 

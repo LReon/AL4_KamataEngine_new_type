@@ -29,8 +29,12 @@ public:
 	// 更新
 	void Update();
 
+	
+
 	// 描画
 	void Draw(Camera& camera);
+
+
 
 	// 弾
 	PlayerBullet* bullet_ = nullptr;

@@ -36,6 +36,13 @@ public: // メンバ関数
 	// 3Dモデルの生成
 	Model* model_ = nullptr;
 
+	int hp = 3;
+	int flag = 0;
+
+	int eHp = 3;
+	int eFlag = 0;
+
+	
 	// ワールドトランスフォーム
 	WorldTransform worldTransform_;
 
@@ -53,6 +60,9 @@ public: // メンバ関数
 	// 敵
 	Enemy* enemy_ = nullptr;
 
+	bool finished_ = false;
+
+	bool IsFinished() const { return finished_; }
 
 	// テクスチャハンドル
 	uint32_t enemyTextureHandle_ = 0;

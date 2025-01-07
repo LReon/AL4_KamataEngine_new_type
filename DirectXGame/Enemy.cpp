@@ -104,7 +104,7 @@ void Enemy::Update() {
 
 
 	// 敵のフェーズ
-	switch (phase_) {
+	/*switch (phase_) {
 	case Enemy::Phase::Approach:
 	default:
 
@@ -117,7 +117,7 @@ void Enemy::Update() {
 
 		break;
 	
-	}
+	}*/
 	
 	Fire();
 
@@ -130,14 +130,21 @@ void Enemy::Update() {
 		enemyBullet->Update();
 	}
 
-	// 敵の移動速度
-	/*const float kEnemySpeedY = 0.005f;
-	const float kEnemySpeedZ = 0.2f;
+	 //敵の移動速度
+	float kEnemySpeedY = 0.5f;
+	//const float kEnemySpeedZ = 0.2f;
 
-	move.y += kEnemySpeedY;
-	move.z -= kEnemySpeedZ;
+	//Vector3 move = {0, 0, 0};
 
-	worldTransform_.translation_ += move;*/
+	
+	worldTransform_.translation_.x += kEnemySpeedY;
+	if (worldTransform_.translation_.x > 50) {
+	
+		worldTransform_.translation_.x *= -1;
+	
+	}
+
+	worldTransform_.translation_.z = 15;
 
 	worldTransform_.matWorld_ = MakeAffineMatrix(worldTransform_.scale_, worldTransform_.rotation_, worldTransform_.translation_);
 
